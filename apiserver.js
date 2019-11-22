@@ -11,11 +11,12 @@ var app = express();
 var requestIp = require('request-ip');
 var package = require('./package.json')
 var cors = require('cors')
-var { api_ping } = require('./api')
+var { api_ping,requirePost,mw_authAdminUser } = require('./api')
 var config
 
 app.use(cors())
 app.use(requestIp.mw())
+// app.use(mw_authAdminUser)
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(function (req, res, next) {

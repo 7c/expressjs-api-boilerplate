@@ -12,6 +12,9 @@ var config = {
     apiserver: {
         ip:'127.0.0.1',
         port:7600
+    },
+    auth_tokens: {
+        '1494dd2c-f449-4a8c-a620-4244d11d3285' : ['/ping']
     }
 }
 
