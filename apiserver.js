@@ -16,7 +16,7 @@ var config
 
 app.use(cors())
 app.use(requestIp.mw())
-// app.use(mw_authAdminUser)
+// app.use(function (req, res, next) { mw_authAdminUser(req,res,next,config) })
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(function (req, res, next) {

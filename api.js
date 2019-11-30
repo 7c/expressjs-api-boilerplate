@@ -9,20 +9,29 @@ function api_ping (req, res) {
 }
 
 
-function mw_authAdminUser(req, res) {
+function mw_authAdminUser(req, res,next,config) {
     var headers = req.headers
-    var uri = req.originalUrl.replace(/^\/api/, '')
-    debug(`authAdminUser uri=${uri} headers=`, JSON.stringify(headers))
-    if (headers.hasOwnProperty('token') &&
-        config.auth_tokens.hasOwnProperty(headers['token']) &&
-        (config.auth_tokens[headers['token']].includes('*') || config.auth_tokens[headers['token']].includes(uri))) {
-        debug(`user ${headers['token']} has access to ${uri}`)
-        return true
+    var given_token = headers.hasOwnProperty('token') ? headers['token'] : false
+    console.log(`given_token=${given_token}`)
+    debug(`authAdminUser uri=${req.originalUrl} headers=`, JSON.stringify(headers))
+    if (given_token && config.auth_tokens.hasOwnProperty(given_token))
+    {
+        
+        var token_config = config.auth_tokens[given_token]
+        for(var rx of token_config)
+        {
+            if (req.originalUrl.match(rx)) {
+                console.log(`authAdminUser: token=${given_token} granted access to ${rx}`)
+                return next()
+            }
+        }
     }
+    
     res.json({
-        retcode: -1,
+        retcode: -99,
         message: 'Access denied'
     })
+    res.end()
     return false
 }
 
