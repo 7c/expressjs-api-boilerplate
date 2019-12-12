@@ -1,11 +1,13 @@
 var debug = require('debug')('config')
-var { isLocal } = require('mybase')
-var argv = require('minimist')(process.argv.slice(2));
-var Sentry = require('raven')
-// Sentry.config('<URL>',{
+var { isLocal,vaultFill } = require('mybase')
+var argv = require('minimist')(process.argv.slice(2))
+
+// var Sentry = require('@sentry/node')
+// Sentry.init({
+//     dsn:'<URL>',
 //     captureUnhandledRejections: true,
 //     name: require('os').hostname()
-// }).install()
+// })
 
 
 var config = {

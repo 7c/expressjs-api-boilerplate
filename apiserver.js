@@ -99,5 +99,4 @@ async function bootstrap () {
     
 }
 
-
-if (argv.help) showUsage(); else bootstrap()
+bootstrap()
